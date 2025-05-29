@@ -14,8 +14,8 @@ import Layout from '../layouts/Layout.astro';
 		to explore companies currently recruiting<br/>
 		and search open job positions around the world.
 	</section>
-	<section>
-		<menu>
+  <section>
+    <menu>
 			<li>
 				<a href="https://components.joblist.today/apps/search">Search</a>
 				companies and jobs listings
@@ -32,27 +32,13 @@ import Layout from '../layouts/Layout.astro';
 				Add a <a href="https://edit.joblist.today/#/collections/companies/new">new company</a> to the database
 			</li>
 		</menu>
-		<section>
-			<joblist-stats></joblist-stats>
-		</section>
-	</section>
-</template>
-
-<template id="page-index-unused">
+  </section>
 	<section>
-		<blockquote>
-			<joblist-heatmap days="365"></joblist-heatmap>
-			<cite>Daily snapshot of the job postings for all companies in the
-				database for the previous 365 days</cite>
-			<cite>
-				There is a
-				<a href="https://gitlab.com/joblist/components/-/issues/5"
-					 taget="_blank"
-					 rel="noreferrer noopener"
-				>currently a bug on the heatmaps</a>
-			</cite>
-		</blockquote>
+		<joblist-stats></joblist-stats>
 	</section>
+  <section>
+    <joblist-companies-highlighted title="Companies currently highlighted"></joblist-companies-highlighted>
+  </section>
 </template>
 
 <style>
@@ -62,17 +48,19 @@ joblist-today {
   flex-grow: 1;
   justify-content: center;
   align-items: center;
+  section {
+    padding: var(--s);
+  }
 }
 joblist-stats {
   display: flex;
 	flex-direction: column;
 	text-align: center;
-	margin: var(--s);
-	padding: calc(var(--s) / 2);
   transition: all 300ms ease-in-out;
   border: 1px solid transparent;
   background-color: transparent;
   border-radius: var(--s);
+  padding: calc(var(--s) / 3);
   &:has(p) {
 	  border-color: var(--c-link);
     border-radius: 0;
@@ -82,6 +70,17 @@ joblist-stats {
   }
   &:not(:has(p)) {
 	  background-color: var(--c-link);
+  }
+}
+joblist-companies-highlighted {
+  display: flex;
+  max-width: 60rem;
+  :is(ul) {
+    display: grid;
+    grid-template-columns: 1fr;
+    @media (min-width: 40rem) {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 }
 </style>
