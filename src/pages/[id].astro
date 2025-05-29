@@ -1,8 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+export const prerender = false;
+
+const { id = "joblist-today" } = Astro.params;
 ---
 <Layout>
-  <joblist-today company-id="joblist-today"></joblist-today>
+  <joblist-today company-id="{id}"></joblist-today>
 </Layout>
 
 <template id="page-index">
@@ -54,14 +58,4 @@ import Layout from '../layouts/Layout.astro';
 		</blockquote>
 	</section>
 </template>
-
-<style>
-joblist-today {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-}
-</style>
 

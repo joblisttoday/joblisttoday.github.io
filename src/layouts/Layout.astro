@@ -1,22 +1,55 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" joblist-layout>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>joblist.today</title>
+    <meta name="description" content="joblist.today is a collaborative directory to explore companies currently recruiting and search open job positions around the world" />
+    <script>
+    import "@joblist/components";
+    import "../js/index.js"
+    </script>
 	</head>
 	<body>
-		<slot />
+    <joblist-layout>
+	    <joblist-menu favicon="true" show-default="true"></joblist-menu>
+	    <joblist-page>
+		    <slot />
+	    </joblist-page>
+    </joblist-layout>
+
+    <joblist-db></joblist-db>
+    <joblist-umami-script></joblist-umami-script>
 	</body>
 </html>
 
 <style>
-	html,
-	body {
+@import url("https://cdn.jsdelivr.net/npm/@joblist/components@0.1.16/dist-lib/style.css");
+
+.content {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+section + section {
+	margin-top: var(--s);
+}
+
+joblist-date {
+	font-style: italic;
+}
+
+joblist-stats:has(p) {
+	border: 1px solid var(--c-link);
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	margin: var(--s);
+	padding: calc(var(--s) / 2);
+	:is(p) {
 		margin: 0;
-		width: 100%;
-		height: 100%;
 	}
+}
 </style>
