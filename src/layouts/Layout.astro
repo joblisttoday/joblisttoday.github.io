@@ -7,10 +7,6 @@
 		<meta name="generator" content={Astro.generator} />
 		<title>joblist.today</title>
     <meta name="description" content="joblist.today is a collaborative directory to explore companies currently recruiting and search open job positions around the world" />
-    <script>
-    import "@joblist/components";
-    import "../js/index.js"
-    </script>
 	</head>
 	<body>
     <joblist-layout>
@@ -22,6 +18,11 @@
 
     <joblist-db></joblist-db>
     <joblist-umami-script></joblist-umami-script>
+
+    <script>
+    import "@joblist/components";
+    import "../js/index.js"
+    </script>
 	</body>
 </html>
 
