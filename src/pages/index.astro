@@ -63,5 +63,26 @@ joblist-today {
   justify-content: center;
   align-items: center;
 }
+joblist-stats {
+  display: flex;
+	flex-direction: column;
+	text-align: center;
+	margin: var(--s);
+	padding: calc(var(--s) / 2);
+  transition: all 300ms ease-in-out;
+  border: 1px solid transparent;
+  background-color: transparent;
+  border-radius: var(--s);
+  &:has(p) {
+	  border-color: var(--c-link);
+    border-radius: 0;
+	  :is(p) {
+		  margin: 0;
+	  }
+  }
+  &:not(:has(p)) {
+	  background-color: var(--c-link);
+  }
+}
 </style>
 
