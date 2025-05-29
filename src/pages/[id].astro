@@ -25,7 +25,7 @@ export const getStaticPaths = async () => {
 const { id = "joblist-today" } = Astro.params;
 ---
 <Layout>
-  <joblist-today company-id="{id}"></joblist-today>
+  <joblist-today company-id={id}></joblist-today>
 </Layout>
 
 <template id="page-index">
