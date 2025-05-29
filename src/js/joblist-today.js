@@ -7,18 +7,6 @@ customElements.define(
     get isHomepage() {
       return window.location.pathname === "/";
     }
-    get isSubdomain() {
-      const domains = window.location.hostname.split(".");
-      const topDomain = domains[domains.length - 1];
-      if (domains.length === 2) {
-        if (topDomain === "localhost") {
-          return true;
-        }
-      } else if (domains.length >= 3) {
-        return true;
-      }
-      return false;
-    }
     closeMenu() {
       const $menuToggle = document.querySelector(
         'joblist-menu input[id="joblist-menu"]',
@@ -44,7 +32,7 @@ customElements.define(
       }
     }
     connectedCallback() {
-      if (!this.isSubdomain && this.isHomepage) {
+      if (this.isHomepage) {
         this.replaceChildren(this.createHomepage());
       } else if (this.companyId) {
         this.replaceChildren(this.createCompany(this.companyId));
