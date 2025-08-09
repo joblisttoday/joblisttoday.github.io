@@ -9,7 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@joblist/components": "^0.2.6",
+    "@joblist/components": "^0.2.7",
     "astro": "^5.8.0"
   }
 }
