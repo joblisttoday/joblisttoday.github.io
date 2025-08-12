@@ -2,91 +2,95 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout>
-  <joblist-today></joblist-today>
+    <joblist-today></joblist-today>
 </Layout>
 
 <template id="page-index">
-	<section>
-		<joblist-favicon></joblist-favicon>
-	</section>
-	<section>
-		<a href="./">joblist.today</a> is an open data system,<br/>
-		to explore companies currently recruiting<br/>
-		and search open job positions around the world.
-	</section>
-  <section>
-    <menu>
-			<li>
-				<a href="https://components.joblist.today/apps/search">Search</a>
-				companies and jobs listings
-			</li>
-			<li>
-				Explore
-				<a href="https://components.joblist.today/apps/companies/">all companies</a>
-			</li>
-			<li>
-				Get in touch
-				<a href="https://matrix.to/#/#joblist.today:matrix.org">#joblist.today:matrix.org</a>
-			</li>
-			<li>
-				Add a <a href="https://edit.joblist.today/#/collections/companies/new">new company</a> to the database
-			</li>
-      <li>
-				  <a href="https://components.joblist.today/apps/pricing-table/">Highlight a company</a> on the homepage and withing the websites (alpha, use stripe test credentials)
-			</li>
-		</menu>
-  </section>
-	<section>
-		  <joblist-stats>
-</joblist-stats>
-	</section>
-  <section>
-      <joblist-companies-highlighted title="Companies currently highlighted">
-          <progress/>
-      </joblist-companies-highlighted>
-  </section>
+	  <dialog open>
+        <form method="dialog">
+            <button formmethod="dialog">Close</button>
+        </form>
+        <section>
+		        <joblist-favicon></joblist-favicon>
+	      </section>
+	      <section>
+		        <a href="./">joblist.today</a> is an open data system,<br/>
+		        to explore companies currently recruiting<br/>
+		        and search open job positions around the world.
+	      </section>
+        <section>
+            <menu>
+			          <li>
+				            <a href="https://components.joblist.today/apps/search">Search</a>
+				            companies and jobs listings
+			          </li>
+			          <li>
+				            Explore
+				            <a href="https://components.joblist.today/apps/companies/">all companies</a>
+			          </li>
+			          <li>
+				            Get in touch
+				            <a href="https://matrix.to/#/#joblist.today:matrix.org">#joblist.today:matrix.org</a>
+			          </li>
+			          <li>
+				            Add a <a href="https://edit.joblist.today/#/collections/companies/new">new company</a> to the database
+			          </li>
+		        </menu>
+        </section>
+    </dialog>
+	  <section>
+		    <joblist-stats></joblist-stats>
+	  </section>
+    <section>
+        <joblist-companies-highlighted title="Companies currently highlighted">
+            <progress/>
+        </joblist-companies-highlighted>
+    </section>
+    <section>
+        <a href="https://components.joblist.today/apps/pricing-table/" title="Use stripe test credentials">Highlight a company</a> (beta).
+    </section>
 </template>
 
 <style>
-joblist-today {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-  gap: var(--s);
-}
-joblist-stats {
-  display: flex;
-	flex-direction: column;
-	text-align: center;
-  transition: all 300ms ease-in-out;
-  border: 1px solid transparent;
-  background-color: transparent;
-  border-radius: var(--s);
-  padding: calc(var(--s) / 3);
-  &:has(p) {
-	    /* border-color: var(--c-link); */
-      /* border-radius: 0; */
-	  :is(p) {
-		  margin: 0;
-	  }
-  }
-    /* &:not(:has(p)) {
-	     background-color: var(--c-link);
-       } */
-}
-joblist-companies-highlighted {
-  display: flex;
-  max-width: 60rem;
-  :is(ul) {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--s);
-    @media (min-width: 40rem) {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-}
+ joblist-today {
+     display: flex;
+     flex-direction: column;
+     flex-grow: 1;
+     justify-content: center;
+     align-items: center;
+     gap: var(--s);
+ }
+ joblist-stats {
+     display: flex;
+	   flex-direction: column;
+	   text-align: center;
+     transition: all 300ms ease-in-out;
+     border: 1px solid transparent;
+     background-color: transparent;
+     border-radius: var(--s);
+     padding: calc(var(--s) / 3);
+     &:has(p) {
+	       /* border-color: var(--c-link); */
+         /* border-radius: 0; */
+	       :is(p) {
+		         margin: 0;
+	       }
+     }
+     /* &:not(:has(p)) {
+	      background-color: var(--c-link);
+        } */
+ }
+ joblist-companies-highlighted {
+     display: flex;
+     max-width: 60rem;
+     :is(ul) {
+         display: grid;
+         grid-template-columns: 1fr;
+         gap: var(--s);
+         @media (min-width: 40rem) {
+             grid-template-columns: 1fr 1fr;
+         }
+     }
+ }
 </style>
 
