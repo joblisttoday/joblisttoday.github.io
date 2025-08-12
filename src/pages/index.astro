@@ -37,10 +37,13 @@ import Layout from '../layouts/Layout.astro';
 		</menu>
   </section>
 	<section>
-		<joblist-stats></joblist-stats>
+		  <joblist-stats>
+</joblist-stats>
 	</section>
   <section>
-    <joblist-companies-highlighted title="Companies currently highlighted"></joblist-companies-highlighted>
+      <joblist-companies-highlighted title="Companies currently highlighted">
+          <progress/>
+      </joblist-companies-highlighted>
   </section>
 </template>
 
@@ -51,9 +54,7 @@ joblist-today {
   flex-grow: 1;
   justify-content: center;
   align-items: center;
-  section {
-    padding: var(--s);
-  }
+  gap: var(--s);
 }
 joblist-stats {
   display: flex;
@@ -65,15 +66,15 @@ joblist-stats {
   border-radius: var(--s);
   padding: calc(var(--s) / 3);
   &:has(p) {
-	  border-color: var(--c-link);
-    border-radius: 0;
+	    /* border-color: var(--c-link); */
+      /* border-radius: 0; */
 	  :is(p) {
 		  margin: 0;
 	  }
   }
-  &:not(:has(p)) {
-	  background-color: var(--c-link);
-  }
+    /* &:not(:has(p)) {
+	     background-color: var(--c-link);
+       } */
 }
 joblist-companies-highlighted {
   display: flex;
@@ -81,6 +82,7 @@ joblist-companies-highlighted {
   :is(ul) {
     display: grid;
     grid-template-columns: 1fr;
+    gap: var(--s);
     @media (min-width: 40rem) {
       grid-template-columns: 1fr 1fr;
     }
