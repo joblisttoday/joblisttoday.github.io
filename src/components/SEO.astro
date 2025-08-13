@@ -1,0 +1,126 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	url: string;
+	image?: string;
+	siteName?: string;
+	type?: 'website' | 'article';
+	locale?: string;
+	keywords?: string[];
+	companyId?: string;
+	companyData?: {
+		title?: string;
+		description?: string;
+		tags?: string[];
+		company_url?: string;
+		job_board_hostname?: string;
+	};
+}
+
+const { 
+	title, 
+	description, 
+	url,
+	image,
+	siteName = 'joblist.today',
+	type = 'website',
+	locale = 'en_US',
+	keywords = [],
+	companyId,
+	companyData
+} = Astro.props;
+
+// Enhanced image logic for company pages
+let finalImage = image || '/favicon.svg';
+if (companyId && !image) {
+	if (companyData?.company_url) {
+		try {
+			const companyHostname = new URL(companyData.company_url).hostname;
+			finalImage = `https://icons.duckduckgo.com/ip2/${companyHostname}.ico`;
+		} catch {
+			finalImage = '/favicon.svg';
+		}
+	}
+}
+
+// Enhanced keywords with company tags and hostname
+let finalKeywords = keywords;
+if (companyData) {
+	finalKeywords = [
+		...keywords,
+		...(companyData.tags || []),
+		companyData.job_board_hostname || '',
+		companyId || ''
+	].filter(Boolean);
+}
+
+const fullTitle = title.includes('joblist.today') ? title : `${title} | ${siteName}`;
+const canonicalUrl = new URL(url).href;
+const keywordsString = finalKeywords.length > 0 ? finalKeywords.join(', ') : 'jobs, careers, hiring, companies, recruitment';
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={keywordsString} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(finalImage, url).href} />
+<meta property="og:image:alt" content={title} />
+<meta property="og:locale" content={locale} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@joblisttoday" />
+<meta name="twitter:url" content={canonicalUrl} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(finalImage, url).href} />
+<meta name="twitter:image:alt" content={title} />
+
+<!-- Additional SEO -->
+<meta name="robots" content="index, follow" />
+<meta name="author" content="joblist.today" />
+<meta name="theme-color" content="#ffffff" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="dns-prefetch" href="https://icons.duckduckgo.com" />
+
+{companyData && (
+	<script type="application/ld+json" set:html={JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "Organization",
+		"name": companyData.title || companyId,
+		"url": companyData.company_url,
+		"description": companyData.description,
+		"logo": finalImage.startsWith('http') ? finalImage : new URL(finalImage, url).href,
+		"jobPostings": {
+			"@type": "ItemList",
+			"url": `${url}`,
+			"description": `Current job openings at ${companyData.title || companyId}`
+		},
+		...(companyData.social_media_urls && {
+			"sameAs": Object.values(companyData.social_media_urls).filter(Boolean)
+		}),
+		...(companyData.positions && companyData.positions.length > 0 && {
+			"address": companyData.positions.map(pos => ({
+				"@type": "PostalAddress",
+				"addressCountry": pos.country,
+				"addressLocality": pos.city,
+				"postalCode": pos.postal_code,
+				"streetAddress": pos.address
+			})).filter(addr => addr.addressCountry || addr.addressLocality)
+		})
+	})} />
+)}

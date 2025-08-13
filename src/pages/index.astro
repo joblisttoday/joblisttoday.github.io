@@ -1,43 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout>
+<Layout
+  title="Companies recruiting"
+  description="joblist.today is a collaborative directory to explore companies currently recruiting and search open job positions around the world"
+>
     <joblist-today></joblist-today>
 </Layout>
 
 <template id="page-index">
-	  <dialog open>
-        <form method="dialog">
-            <button formmethod="dialog">Close</button>
-        </form>
-        <section>
-		        <joblist-favicon></joblist-favicon>
-	      </section>
-	      <section>
-		        <a href="./">joblist.today</a> is an open data system,<br/>
-		        to explore companies currently recruiting<br/>
-		        and search open job positions around the world.
-	      </section>
-        <section>
-            <menu>
-			          <li>
-				            <a href="https://components.joblist.today/apps/search">Search</a>
-				            companies and jobs listings
-			          </li>
-			          <li>
-				            Explore
-				            <a href="https://components.joblist.today/apps/companies/">all companies</a>
-			          </li>
-			          <li>
-				            Get in touch
-				            <a href="https://matrix.to/#/#joblist.today:matrix.org">#joblist.today:matrix.org</a>
-			          </li>
-			          <li>
-				            Add a <a href="https://edit.joblist.today/#/collections/companies/new">new company</a> to the database
-			          </li>
-		        </menu>
-        </section>
-    </dialog>
+    <section>
+		    <joblist-favicon></joblist-favicon>
+	  </section>
+    <section>
+        <p>
+            <i>Open database</i> and <i>collaborative directory</i> of <strong>companies currently recruiting</strong> and <strong>job positions around the world</strong> — <a href="./">JobList.Today</a>
+        </p>
+    </section>
 	  <section>
 		    <joblist-stats></joblist-stats>
 	  </section>
@@ -47,9 +26,29 @@ import Layout from '../layouts/Layout.astro';
         </joblist-companies-highlighted>
     </section>
     <section>
-        <a href="https://components.joblist.today/apps/pricing-table/" title="Use stripe test credentials">Highlight a company</a> (beta).
+        <menu>
+            <li>
+				        <a href="https://components.joblist.today/apps/search">Search</a>
+				        companies and jobs listings
+			      </li>
+            <li>
+				        <a href="https://edit.joblist.today/#/collections/companies/new">Add a new company</a> to the database
+			      </li>
+            <li>
+                <a href="https://components.joblist.today/apps/pricing-table/" title="Use stripe test credentials">Highlight a company</a> on the website (beta).
+            </li>
+        </menu>
     </section>
 </template>
+
+<script>
+ const dialog = document.querySelector("dialog");
+ const showButton = document.querySelector("dialog + button");
+
+ showButton.addEventListener("click", () => {
+     dialog.showModal();
+ });
+</script>
 
 <style>
  joblist-today {
@@ -59,6 +58,13 @@ import Layout from '../layouts/Layout.astro';
      justify-content: center;
      align-items: center;
      gap: var(--s);
+     dialog {
+         form {
+             display: flex;
+             align-items: flex-end;
+             justify-content: flex-end;
+         }
+     }
  }
  joblist-stats {
      display: flex;

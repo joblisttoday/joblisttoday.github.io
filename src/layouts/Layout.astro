@@ -1,16 +1,41 @@
 ---
 import "@joblist/components/style"
+import SEO from '../components/SEO.astro';
+import { initializeDataCache } from '../utils/git-data.js';
+
+// Initialize data cache early in the build process
+await initializeDataCache();
+
+interface Props {
+	title?: string;
+	description?: string;
+	companyId?: string;
+	companyData?: any;
+}
+
+const {
+	title = 'joblist.today',
+	description = 'joblist.today is a collaborative directory to explore companies currently recruiting and search open job positions around the world',
+	companyId,
+	companyData
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" joblist-layout>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>joblist.today</title>
-    <meta name="description" content="joblist.today is a collaborative directory to explore companies currently recruiting and search open job positions around the world" />
+		<SEO 
+			title={title} 
+			description={description} 
+			url={Astro.url.href} 
+			keywords={['jobs', 'careers', 'hiring', 'companies', 'recruitment', 'job search']}
+			companyId={companyId}
+			companyData={companyData}
+		/>
 	</head>
 	<body>
     <joblist-layout>

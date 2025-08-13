@@ -1,29 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCompanyList, getCompanyData } from '../utils/git-data.js';
 
 export const getStaticPaths = async () => {
-  const response = await fetch(
-    "https://api.github.com/repos/joblisttoday/data/contents/companies",
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/vnd.github.v3+json",
-      },
-    }
-  );
-  const folders = await response.json();
-  const folderNames = folders.filter((item) => item.type === "dir").map((item) => item.name);
-  return folderNames.map(item => {
-    return {
-		  params: {
-			  id: item
-	    }
-    }
-  })
+  const companies = await getCompanyList();
+  return companies.map(companyId => ({
+    params: { id: companyId }
+  }));
 }
 
 const { id = "joblist-today" } = Astro.params;
+
+// Fetch company data for enhanced SEO using git
+const companyData = await getCompanyData(id);
 ---
-<Layout>
+<Layout
+  title={companyData?.title ? `${companyData.title} careers & jobs` : `${id} careers & jobs`}
+  description={companyData?.description || `Current job openings at ${id}. Browse available positions, company culture, and hiring information. Find your next career opportunity with ${id}.`}
+  companyId={id}
+  companyData={companyData}
+>
   <joblist-today company-id={id}></joblist-today>
 </Layout>
