@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout
-  title="Companies recruiting"
-  description="joblist.today is a collaborative directory to explore companies currently recruiting and search open job positions around the world"
+    title="Companies recruiting"
+    description="joblist.today is a collaborative directory to explore companies currently recruiting and search open job positions around the world"
 >
     <joblist-today></joblist-today>
 </Layout>
@@ -41,15 +41,6 @@ import Layout from '../layouts/Layout.astro';
     </section>
 </template>
 
-<script>
- const dialog = document.querySelector("dialog");
- const showButton = document.querySelector("dialog + button");
-
- showButton.addEventListener("click", () => {
-     dialog.showModal();
- });
-</script>
-
 <style>
  joblist-today {
      display: flex;
@@ -58,13 +49,6 @@ import Layout from '../layouts/Layout.astro';
      justify-content: center;
      align-items: center;
      gap: var(--s);
-     dialog {
-         form {
-             display: flex;
-             align-items: flex-end;
-             justify-content: flex-end;
-         }
-     }
  }
  joblist-stats {
      display: flex;
