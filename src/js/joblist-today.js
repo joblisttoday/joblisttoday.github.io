@@ -32,16 +32,9 @@ customElements.define(
       }
     }
     connectedCallback() {
-      if (this.isHomepage) {
-        this.replaceChildren(this.createHomepage());
-      } else if (this.companyId) {
+      if (this.companyId) {
         this.replaceChildren(this.createCompany(this.companyId));
       }
-    }
-    createHomepage() {
-      const $template = document.createElement("wcu-template");
-      $template.setAttribute("template", "page-index");
-      return $template;
     }
     createCompany(companyId) {
       const $company = document.createElement("joblist-company");
