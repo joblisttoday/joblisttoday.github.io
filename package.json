@@ -9,9 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.4.2",
-    "@joblist/components": "^0.3.3",
-    "astro": "^5.8.0",
-    "isomorphic-git": "^1.32.3"
+    "@astrojs/sitemap": "^3.6.0",
+    "@joblist/components": "^0.3.4",
+    "astro": "^5.16.1",
+    "isomorphic-git": "^1.35.1"
   }
 }
